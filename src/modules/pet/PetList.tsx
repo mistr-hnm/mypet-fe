@@ -16,7 +16,7 @@ export function PetList() {
 
   const navigate = useNavigate();
 
-  const auth = JSON.parse(localStorage.getItem('auth'));
+  const auth = JSON.parse(localStorage.getItem('auth') || '{}');
   const isAdmin = !!(auth && auth?.usertype === USERTYPE.ADMIN);  
 
   const { page, limit } = Route.useSearch();
@@ -170,7 +170,7 @@ export function PetList() {
       <div className="flex justify-end items-center my-2">
         <input
           type="text"
-          placeholder="Search student..."
+          placeholder="Search Record..."
           className="border rounded p-2 w-1/5 mr-4"
           onChange={(e) => {
             debouncedSearch(e.target.value);

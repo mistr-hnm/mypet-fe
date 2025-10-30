@@ -114,7 +114,7 @@ export function PetForm() {
                 const { id, ...bodyToUpdate } = payLoad
                 updateMutation.mutate({ id: id, body: bodyToUpdate }, {
                     onSuccess: () => {
-                        toast.success("Student updated.")
+                        toast.success("Record updated.")
                         setIsLoading(false);
                         navigate({
                             to : '/pets',
@@ -131,7 +131,7 @@ export function PetForm() {
             } else {
                 createMutation.mutate(payLoad, {
                     onSuccess: () => {
-                        toast.success("Student added.")
+                        toast.success("Record added.")
                         setIsLoading(false);
                         navigate({
                             to : '/pets',
