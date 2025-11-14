@@ -22,7 +22,7 @@ import {
 import { Input } from "../../components/ui/input";
 import { useLoginUser } from "../../services/mutation/auth";
 import LoadingSpinner from "../../components/ui/loading-spinner";
-import { toast } from "sonner";
+import { toast } from "sonner"; 
 
 export function Login() {
 
@@ -45,7 +45,7 @@ export function Login() {
       }
     })
   }
-
+ 
   const loginForm = useForm<LoginUserBody>({
     resolver: standardSchemaResolver(loginUserBodySchema),
     defaultValues: {
@@ -112,6 +112,16 @@ export function Login() {
               </div>
             </form>
           </Form>
+          <div className="mt-4">
+            <Button
+              className="w-full bg-red-500 hover:bg-red-600 text-white"
+              onClick={() => {
+                window.location.href = 'http://localhost:3000/api/users/google/login';
+              }}
+            >
+              Login with Google
+            </Button>
+          </div>
         </CardContent>
         <CardFooter>
           <Link to="/signup" from="/login" className="text-blue-600">

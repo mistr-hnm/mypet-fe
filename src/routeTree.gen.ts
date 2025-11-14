@@ -15,6 +15,7 @@ import { Route as HomeIndexRouteImport } from './routes/_home/index'
 import { Route as HomePetsRouteImport } from './routes/_home/pets'
 import { Route as HomeAboutRouteImport } from './routes/_home/about'
 import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
+import { Route as AuthOauthRouteImport } from './routes/_auth/oauth'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as HomePetIdRouteImport } from './routes/_home/pet/$id'
 
@@ -46,6 +47,11 @@ const AuthSignupRoute = AuthSignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthOauthRoute = AuthOauthRouteImport.update({
+  id: '/oauth',
+  path: '/oauth',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -59,6 +65,7 @@ const HomePetIdRoute = HomePetIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/login': typeof AuthLoginRoute
+  '/oauth': typeof AuthOauthRoute
   '/signup': typeof AuthSignupRoute
   '/about': typeof HomeAboutRoute
   '/pets': typeof HomePetsRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/login': typeof AuthLoginRoute
+  '/oauth': typeof AuthOauthRoute
   '/signup': typeof AuthSignupRoute
   '/about': typeof HomeAboutRoute
   '/pets': typeof HomePetsRoute
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/_home': typeof HomeRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
+  '/_auth/oauth': typeof AuthOauthRoute
   '/_auth/signup': typeof AuthSignupRoute
   '/_home/about': typeof HomeAboutRoute
   '/_home/pets': typeof HomePetsRoute
@@ -86,14 +95,22 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/login' | '/signup' | '/about' | '/pets' | '/' | '/pet/$id'
+  fullPaths:
+    | '/login'
+    | '/oauth'
+    | '/signup'
+    | '/about'
+    | '/pets'
+    | '/'
+    | '/pet/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/signup' | '/about' | '/pets' | '/' | '/pet/$id'
+  to: '/login' | '/oauth' | '/signup' | '/about' | '/pets' | '/' | '/pet/$id'
   id:
     | '__root__'
     | '/_auth'
     | '/_home'
     | '/_auth/login'
+    | '/_auth/oauth'
     | '/_auth/signup'
     | '/_home/about'
     | '/_home/pets'
@@ -150,6 +167,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/oauth': {
+      id: '/_auth/oauth'
+      path: '/oauth'
+      fullPath: '/oauth'
+      preLoaderRoute: typeof AuthOauthRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_auth/login': {
       id: '/_auth/login'
       path: '/login'
@@ -169,11 +193,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthRouteChildren {
   AuthLoginRoute: typeof AuthLoginRoute
+  AuthOauthRoute: typeof AuthOauthRoute
   AuthSignupRoute: typeof AuthSignupRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthLoginRoute: AuthLoginRoute,
+  AuthOauthRoute: AuthOauthRoute,
   AuthSignupRoute: AuthSignupRoute,
 }
 
